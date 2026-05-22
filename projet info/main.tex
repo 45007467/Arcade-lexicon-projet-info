@@ -1,0 +1,587 @@
+\documentclass[a4paper, 12pt, twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{ae,aecompl}
+\usepackage[top=2.5cm, bottom=2cm,
+            left=3cm, right=2.5cm,
+            headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\input{pagedegarde}
+
+% Style pour le code
+\lstset{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  rulecolor=\color{gray!40},
+  breaklines=true,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red!70!black},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=5pt,
+  showstringspaces=false
+}
+
+%  INFORMATIONS DU PROJET 
+\title{ARCADE LEXICON  Site de jeux assisté par IA}
+\entreprise{Université Paris Nanterre}
+\datedebut{Janvier 2026}
+\datefin{Mai 2026}
+
+%  À COMPLÉTER : remplacez par vos vrais noms, prénoms et numéros étudiant
+\membrea{NOM Prénom  N étudiant : XXXXXXXX}
+\membreb{NOM Prénom  N étudiant : XXXXXXXX}
+\membrec{NOM Prénom  N étudiant : XXXXXXXX}
+\membred{NOM Prénom  N étudiant : XXXXXXXX}
+\membree{NOM Prénom  N étudiant : XXXXXXXX}
+% 
+
+\begin{document}
+\pagedegarde
+
+%  TABLE DES MATIÈRES 
+\tableofcontents
+\newpage
+
+%  1. INTRODUCTION 
+\section{Introduction}
+
+Ce rapport présente le projet \textbf{ARCADE LEXICON}, un site web de jeux interactifs entièrement assisté par intelligence artificielle, réalisé dans le cadre du cours de programmation assistée par IA de Licence MIASHS première année à l'Université Paris Nanterre.
+
+\subsection{Contexte et objectifs}
+
+L'objectif principal de ce projet était de concevoir un site web de jeux intégrant une intelligence artificielle réelle, capable d'interagir avec le joueur de façon dynamique et personnalisée. Contrairement à un simple projet de programmation, ce projet met l'accent sur la \textbf{collaboration entre l'humain et l'IA} à toutes les étapes : conception, développement et expérience utilisateur finale.
+
+Le projet répond aux exigences suivantes :
+\begin{itemize}
+  \item Utilisation d'une IA générative (Claude d'Anthropic) intégrée directement dans le site
+  \item Conception d'une expérience utilisateur originale et interactive
+  \item Développement d'un système de compte utilisateur avec persistance des données
+  \item Variété de jeux pour démontrer plusieurs usages de l'IA
+\end{itemize}
+
+\subsection{Lien vers le dépôt GitHub}
+
+%  À COMPLÉTER : insérez votre lien GitHub ici
+Le code source complet du projet est disponible à l'adresse suivante :\\
+\url{https://github.com/VOTRE_COMPTE/arcade-lexicon}
+
+\newpage
+
+%  2. ENVIRONNEMENT DE TRAVAIL 
+\section{Environnement de travail}
+
+\subsection{Outils de développement}
+
+Le développement a été réalisé avec les outils suivants :
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\textbf{Outil} & \textbf{Usage} \\
+\hline
+Claude (Anthropic) & Assistant IA principal pour la génération et l'aide au code \\
+\hline
+HTML5 / CSS3 & Structure et mise en page du site \\
+\hline
+JavaScript (ES6+) & Logique des jeux, gestion des états, appels API \\
+\hline
+API Anthropic & Intégration de Claude dans le site pour les commentaires IA \\
+\hline
+LocalStorage (navigateur) & Persistance des comptes et statistiques utilisateurs \\
+\hline
+Canvas API & Rendu graphique des jeux d'arcade (Tetris, Snake, etc.) \\
+\hline
+Overleaf & Rédaction du rapport en \LaTeX \\
+\hline
+GitHub & Hébergement et versionnage du code source \\
+\hline
+\end{tabular}
+\caption{Outils et technologies utilisés}
+\label{tab:outils}
+\end{table}
+
+\subsection{Organisation du travail}
+
+Le projet a été développé en plusieurs phases successives, en utilisant Claude comme assistant de programmation principal. Chaque fonctionnalité a été conçue, discutée et implémentée en collaboration avec l'IA, ce qui a permis d'atteindre un niveau de complexité bien supérieur à ce qui aurait été possible seul.
+
+\newpage
+
+%  3. DESCRIPTION DU PROJET 
+\section{Description du projet et objectifs}
+
+\subsection{Présentation générale}
+
+\textbf{ARCADE LEXICON} est un site web de jeux rétro entièrement contenu dans un seul fichier HTML. Il se distingue par l'intégration profonde de l'intelligence artificielle à tous les niveaux du jeu.
+
+L'interface adopte une esthétique \textit{rétro terminal} (inspirée des écrans phosphore verts des années 80) avec des effets visuels CRT (scanlines, glow effect, flicker).
+
+\subsection{Architecture du projet}
+
+Le projet est constitué d'un \textbf{seul fichier HTML} (environ 160 000 caractères) qui contient :
+
+\begin{itemize}
+  \item Toute la structure HTML (14 écrans de jeu)
+  \item Tout le CSS (animations, effets visuels, thème rétro)
+  \item Tout le JavaScript (logique des jeux, système de compte, appels IA)
+\end{itemize}
+
+Ce choix architectural garantit une portabilité maximale : le site fonctionne en ouvrant simplement le fichier dans un navigateur.
+
+\subsection{Fonctionnalités principales}
+
+\subsubsection{Système de compte utilisateur}
+
+Un système complet d'authentification locale a été implémenté :
+\begin{itemize}
+  \item Création de compte avec nom d'utilisateur et mot de passe (chiffré en base64)
+  \item Connexion / déconnexion avec persistance via \texttt{localStorage}
+  \item Plusieurs comptes possibles sur le même appareil
+  \item Reconnexion automatique à la réouverture
+\end{itemize}
+
+\subsubsection{Profil et statistiques}
+
+Chaque joueur dispose d'un profil détaillé comprenant :
+\begin{itemize}
+  \item Score total, victoires, ratio VS IA, meilleure série
+  \item Temps de jeu cumulé, parties jouées
+  \item Tableau des statistiques par jeu (parties, victoires, meilleur score, taux de victoire)
+  \item Graphique à barres du meilleur score par jeu
+  \item Système de 13 badges/succès à débloquer
+  \item Historique des 30 dernières parties
+  \item Barre de niveau avec 6 paliers (Recrue \texttt{->} Légende)
+\end{itemize}
+
+\subsubsection{IA adaptative}
+
+L'IA s'adapte en temps réel aux performances du joueur :
+\begin{itemize}
+  \item Niveau IA de 1 à 10, stocké dans le profil
+  \item Augmente de +0,5 à chaque victoire, diminue de -0,3 à chaque défaite
+  \item Modifie les prompts envoyés à Claude (mots plus difficiles, indices cryptiques, stratégie plus agressive)
+  \item Visualisée dans le menu et dans le Tournoi
+\end{itemize}
+
+\subsubsection{Mémoire IA}
+
+L'IA mémorise les habitudes du joueur et génère un rapport personnalisé :
+\begin{itemize}
+  \item Lettres favorites au Pendu
+  \item Colonne préférée au Puissance 4
+  \item Style de jeu (agressif/défensif)
+  \item Rapport IA avec faiblesse principale, point fort, prédiction, contre-stratégie
+\end{itemize}
+
+\newpage
+
+%  4. BIBLIOTHÈQUES ET TECHNOLOGIES 
+\section{Bibliothèques, outils et technologies}
+
+\subsection{Langages utilisés}
+
+\subsubsection{HTML5}
+Structure de toutes les pages du site. Utilisation des éléments sémantiques, de \texttt{<canvas>} pour les jeux d'arcade, et des formulaires pour l'authentification.
+
+\subsubsection{CSS3}
+Mise en page, animations et effets visuels. Technologies CSS utilisées :
+\begin{itemize}
+  \item Variables CSS pour le thème global
+  \item Animations \texttt{@keyframes} (flicker CRT, pulse, bounce)
+  \item \texttt{repeating-linear-gradient} pour l'effet scanlines
+  \item Flexbox et Grid pour la mise en page responsive
+\end{itemize}
+
+\subsubsection{JavaScript ES6+}
+
+Langage principal pour toute la logique. Fonctionnalités utilisées :
+\begin{itemize}
+  \item Modules IIFE (\textit{Immediately Invoked Function Expressions}) pour isoler chaque jeu
+  \item \texttt{async/await} pour les appels à l'API Claude
+  \item \texttt{localStorage} pour la persistance des données
+  \item API Canvas 2D pour les graphismes des jeux arcade
+  \item \texttt{requestAnimationFrame} pour les boucles de jeu
+\end{itemize}
+
+\subsection{API Claude (Anthropic)}
+
+L'API Claude est au cur du projet. Elle est appelée via \texttt{fetch()} en JavaScript :
+
+\begin{lstlisting}[language=Java, caption=Exemple d'appel à l'API Claude]
+async function callClaude(prompt, maxTokens = 400) {
+  const response = await fetch(
+    'https://api.anthropic.com/v1/messages',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: maxTokens,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    }
+  );
+  const data = await response.json();
+  return data.content.map(b => b.text || '').join('').trim();
+}
+\end{lstlisting}
+
+L'IA est utilisée pour :
+\begin{itemize}
+  \item Générer les mots à deviner (Pendu, Wordle, Mot Mystère)
+  \item Commenter les parties en temps réel
+  \item Jouer le rôle de suspect (Le Procureur)
+  \item Générer des définitions vraies/fausses (Duel Définitions)
+  \item Analyser le profil du joueur (Mémoire IA)
+  \item Animer le Tournoi adaptatif
+\end{itemize}
+
+\subsection{Algorithmes implémentés}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\textbf{Algorithme} & \textbf{Usage} \\
+\hline
+Minimax & IA du Morpion (imbattable) et du Puissance 4 \\
+\hline
+Alpha-Beta pruning & Optimisation du Minimax pour le Puissance 4 (profondeur 4) \\
+\hline
+Chasse + ciblage & IA de la Bataille Navale (tire aléatoirement, cible les hits) \\
+\hline
+Fréquence lettres & IA du Pendu (joue les lettres les plus fréquentes en français) \\
+\hline
+RequestAnimationFrame & Boucles de jeu pour les 5 jeux d'arcade \\
+\hline
+LocalStorage JSON & Système de comptes et persistance des données \\
+\hline
+\end{tabular}
+\caption{Algorithmes implémentés}
+\label{tab:algos}
+\end{table}
+
+\newpage
+
+%  5. TRAVAIL RÉALISÉ 
+\section{Travail réalisé}
+
+\subsection{Liste des fonctionnalités}
+
+\subsubsection{Fonctionnalités réalisées}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{6cm}|p{2cm}|p{5cm}|}
+\hline
+\textbf{Fonctionnalité} & \textbf{État} & \textbf{Description} \\
+\hline
+Le Pendu (solo + VS IA) & \cmark{} Réalisé & Mode solo et duel simultané \\
+\hline
+Mot en 6 coups (Wordle) & \cmark{} Réalisé & 5/6/7 lettres, commentaires IA \\
+\hline
+Mot Mystère & \cmark{} Réalisé & Indices progressifs, score décroissant \\
+\hline
+Duel Définitions & \cmark{} Réalisé & L'IA invente de fausses définitions \\
+\hline
+Morpion VS IA & \cmark{} Réalisé & Algorithme Minimax parfait \\
+\hline
+Puissance 4 VS IA & \cmark{} Réalisé & Minimax + élagage alpha-bêta \\
+\hline
+Mastermind & \cmark{} Réalisé & 4 couleurs, 8 essais, feedback IA \\
+\hline
+Bataille Navale & \cmark{} Réalisé & IA avec stratégie de ciblage \\
+\hline
+Le Procureur & \cmark{} Réalisé & Interrogatoire d'un suspect IA \\
+\hline
+Détective & \cmark{} Réalisé & Trouver l'anecdote mensongère \\
+\hline
+Tetris & \cmark{} Réalisé & Rotation, ghost piece, niveaux \\
+\hline
+Snake & \cmark{} Réalisé & 4 modes de pommes différents \\
+\hline
+Space Invaders & \cmark{} Réalisé & Vagues, tirs, comportement IA \\
+\hline
+Breakout & \cmark{} Réalisé & 5 patterns de briques générés aléatoirement \\
+\hline
+Frogger & \cmark{} Réalisé & Voitures/rondins aléatoires par partie \\
+\hline
+Système de compte & \cmark{} Réalisé & Login, register, localStorage \\
+\hline
+Profil + statistiques & \cmark{} Réalisé & 6 stats, graphiques, historique \\
+\hline
+13 badges/succès & \cmark{} Réalisé & Débloqués automatiquement \\
+\hline
+IA adaptative (niveau 1-10) & \cmark{} Réalisé & S'adapte à chaque victoire/défaite \\
+\hline
+Mémoire IA & \cmark{} Réalisé & Analyse personnalisée du joueur \\
+\hline
+Tournoi IA adaptatif & \cmark{} Réalisé & 5 manches avec difficulté croissante \\
+\hline
+\end{tabular}
+\caption{Fonctionnalités réalisées}
+\label{tab:fonctionnalites}
+\end{table}
+
+\subsubsection{Fonctionnalités non réalisées}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{5cm}|p{8cm}|}
+\hline
+\textbf{Fonctionnalité} & \textbf{Raison} \\
+\hline
+Pac-Man & Trop complexe : labyrinthe + 4 IA de fantômes avec comportements différents (Chase, Scatter, Frightened). Nécessiterait un fichier séparé de plusieurs milliers de lignes. \\
+\hline
+Street Fighter / Mario Bros & Nécessite des sprites, une physique avancée et des animations image par image. Incompatible avec l'approche monofichier. \\
+\hline
+Vrai multijoueur en ligne & Nécessite un serveur backend (WebSocket). Non réalisable en HTML statique. \\
+\hline
+Hébergement en ligne & Nécessite une clé API Anthropic côté serveur pour sécuriser les appels. Possible avec Netlify Functions mais non mis en place. \\
+\hline
+\end{tabular}
+\caption{Fonctionnalités non réalisées et justifications}
+\label{tab:nonrealise}
+\end{table}
+
+\subsection{Répartition du travail}
+
+%  À COMPLÉTER : détaillez la vraie répartition du travail dans votre groupe
+Le projet ayant été réalisé en collaboration avec l'IA Claude (Anthropic), la répartition du travail s'est organisée comme suit :
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|p{4cm}|p{9cm}|}
+\hline
+\textbf{Membre} & \textbf{Contributions principales} \\
+\hline
+[Membre 1] & Conception du projet, choix des jeux, tests, rédaction du rapport \\
+\hline
+[Membre 2] & Direction créative, choix du design, tests des jeux d'arcade \\
+\hline
+[Membre 3] & Spécifications des fonctionnalités IA, validation des résultats \\
+\hline
+[Membre 4] & Tests et débogage, rédaction des sections techniques \\
+\hline
+[Membre 5] & Mise en page LaTeX, captures d'écran, documentation \\
+\hline
+Claude (IA) & Génération du code HTML/CSS/JS, algorithmes de jeux, intégration API \\
+\hline
+\end{tabular}
+\caption{Répartition réelle du travail}
+\label{tab:repartition}
+\end{table}
+
+\newpage
+
+%  6. DIFFICULTÉS RENCONTRÉES 
+\section{Difficultés rencontrées}
+
+\subsection{Contrainte du fichier unique}
+
+L'une des principales difficultés techniques a été de maintenir toute la complexité du projet (14 jeux, système de compte, appels API, graphismes Canvas) dans un seul fichier HTML. Cela a nécessité une organisation très rigoureuse du code JavaScript avec des modules IIFE pour éviter les conflits de variables.
+
+\subsection{Intégration de l'API Claude}
+
+Les appels à l'API Anthropic depuis un fichier HTML local posent des problèmes de sécurité (clé API exposée dans le code). En production, il faudrait un serveur intermédiaire (type Netlify Functions) pour masquer la clé. Pour ce projet scolaire, les appels sont faits directement depuis le navigateur dans l'environnement Claude.ai.
+
+\subsection{Performance des algorithmes}
+
+L'algorithme Minimax pour le Puissance 4 sans optimisation était trop lent (profondeur infinie). L'ajout de l'élagage Alpha-Bêta et la limitation à 4 coups de profondeur ont résolu ce problème tout en maintenant une IA très compétitive.
+
+\subsection{Variété des parties}
+
+L'exigence que ``les parties ne se ressemblent pas'' a nécessité plusieurs techniques :
+\begin{itemize}
+  \item Génération aléatoire des mots par l'IA (Pendu, Wordle, Mystère)
+  \item Patterns de briques différents selon le niveau (Breakout : 5 patterns : standard, diamant, croix, vague, bordure)
+  \item Vitesses et directions aléatoires des obstacles (Frogger)
+  \item 4 modes de pommes au Snake
+  \item Commentaires IA toujours différents grâce à Claude
+\end{itemize}
+
+\subsection{Mémoire IA personnalisée}
+
+La construction d'un contexte personnalisé pour chaque joueur et son injection dans les prompts Claude a demandé une réflexion sur la structure des données stockées et sur la façon d'extraire des informations pertinentes sans stocker trop de données.
+
+\newpage
+
+%  7. BILAN 
+\section{Bilan}
+
+\subsection{Conclusion}
+
+Ce projet a démontré qu'un étudiant débutant en programmation peut, avec l'aide d'une IA générative, concevoir et réaliser un site web complexe et original en quelques semaines. La collaboration avec Claude a permis d'atteindre un niveau de fonctionnalités (14 jeux, algorithmes Minimax, API IA intégrée, système de compte) qui aurait demandé des mois de développement traditionnel.
+
+L'apport de l'IA ne s'est pas limité à la génération de code : elle a également joué un rôle de \textbf{conseillère pédagogique}, expliquant les concepts (Minimax, Canvas API, LocalStorage, async/await) au fur et à mesure de leur implémentation.
+
+Du point de vue de l'expérience utilisateur, l'intégration de Claude dans les jeux eux-mêmes (commentaires en direct, adaptation de la difficulté, mémoire des habitudes) crée une expérience unique où chaque partie est différente et où l'IA semble véritablement ``connaître'' le joueur.
+
+\subsection{Perspectives}
+
+Les améliorations envisageables pour une version future sont :
+\begin{itemize}
+  \item \textbf{Hébergement en ligne} avec sécurisation de la clé API (Netlify Functions)
+  \item \textbf{Base de données réelle} (Firebase ou Supabase) pour un classement multi-joueurs global
+  \item \textbf{Analyse d'image réelle} du dessin au Pendu via Claude Vision
+  \item \textbf{Mode multijoueur} en temps réel (WebSocket)
+  \item \textbf{Application mobile} (React Native ou PWA)
+  \item \textbf{Pac-Man} avec implémentation des 4 algorithmes de fantômes originaux
+\end{itemize}
+
+\newpage
+
+%  BIBLIOGRAPHIE 
+\section{Bibliographie}
+
+\renewcommand{\bibname}{}
+\renewcommand{\refname}{}
+\begin{thebibliography}{5}
+  \bibitem[LAM94]{lam1} L. LAMPORT, {\it \LaTeX : A Document preparation system}, Addison-Wesley, 1994
+  \bibitem[ANT24]{ant1} Anthropic, {\it Claude API Documentation}, Anthropic, 2024
+  \bibitem[GAR84]{gar1} M. GARDNER, {\it Wheels, Life and Other Mathematical Amusements}, W.H. Freeman, 1983
+  \bibitem[KNU97]{knu1} D. KNUTH, {\it The Art of Computer Programming Vol. 1}, Addison-Wesley, 1997
+\end{thebibliography}
+
+%  WEBOGRAPHIE 
+\section{Webographie}
+
+\begin{thebibliography}{5}
+  \bibitem[ANT]{ant} \url{https://docs.anthropic.com}  Documentation officielle de l'API Claude
+  \bibitem[MDN]{mdn} \url{https://developer.mozilla.org}  Documentation Canvas API et JavaScript
+  \bibitem[GIT]{git} \url{https://github.com}  Hébergement du code source
+  \bibitem[OVL]{ovl} \url{https://overleaf.com}  Compilation du rapport \LaTeX
+\end{thebibliography}
+
+\newpage
+
+%  ANNEXES 
+\section*{Annexes}
+\appendix
+\makeatletter
+\def\@seccntformat#1{Annexe~\csname the#1\endcsname:\quad}
+\makeatother
+
+\section{Architecture du code}
+
+Le fichier principal \texttt{index.html} est organisé de la façon suivante :
+
+\begin{lstlisting}[caption=Structure du fichier index.html]
+index.html
+ <style>          (CSS : thème rétro, animations, styles des jeux)
+ <body>
+    Auth overlay (écran de connexion/inscription)
+    screen-menu  (menu principal avec 3 sections)
+    screen-profile (profil et statistiques)
+    screen-pendu / wordle / mystere / ...  (14 écrans de jeu)
+    screen-tetris / snake / invaders / breakout / frogger
+ <script>
+     DB {}        (gestion localStorage)
+     BADGES_DEF[] (définition des 13 succès)
+     AUTH {}      (authentification)
+     IAmemory {}  (mémoire et analyse IA)
+     ADAPT {}     (niveau IA adaptatif)
+     G.pendu {}   (jeu du Pendu)
+     G.wordle {}  (Wordle)
+     G.mystere {} (Mot Mystère)
+     G.morpion {} (Morpion - Minimax)
+     G.p4 {}      (Puissance 4 - Alpha-Bêta)
+     G.mastermind {} (Mastermind)
+     G.bataille {} (Bataille Navale)
+     G.defduel {} (Duel Définitions)
+     G.detective {} (Détective)
+     G.procureur {} (Le Procureur)
+     G.tetris {}  (Tetris - Canvas)
+     G.snake {}   (Snake - Canvas)
+     G.invaders {} (Space Invaders - Canvas)
+     G.breakout {} (Breakout - Canvas)
+     G.frogger {} (Frogger - Canvas)
+\end{lstlisting}
+
+\section{Exemple d'exécution du projet}
+
+%  À COMPLÉTER : ajoutez vos captures d'écran ici
+% Exemple :
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.8\textwidth]{capture_menu.png}
+% \caption{Menu principal d'ARCADE LEXICON}
+% \label{fig:menu}
+% \end{figure}
+
+\noindent Les captures d'écran suivantes illustrent les principales fonctionnalités du site :
+
+\begin{enumerate}
+  \item \textbf{Page de connexion} : écran d'authentification avec création de compte
+  \item \textbf{Menu principal} : les 3 sections (Jeux de mots, Classiques VS IA, Arcade)
+  \item \textbf{Le Pendu VS IA} : duel simultané avec commentaires en temps réel
+  \item \textbf{Profil utilisateur} : statistiques, graphiques et badges
+  \item \textbf{Mémoire IA} : rapport personnalisé généré par Claude
+  \item \textbf{Tournoi IA adaptatif} : 5 manches avec difficulté croissante
+  \item \textbf{Tetris} : jeu d'arcade avec ghost piece et niveaux
+  \item \textbf{Space Invaders} : envahisseurs contrôlés par l'IA
+\end{enumerate}
+
+%  Insérez ici vos captures d'écran (photos ou screenshots)
+
+\section{Manuel utilisateur}
+
+\subsection{Prérequis}
+
+Pour utiliser ARCADE LEXICON :
+\begin{itemize}
+  \item Un navigateur web moderne (Chrome, Firefox, Edge, Safari)
+  \item Une connexion internet (pour les appels à l'API Claude)
+  \item Aucune installation requise
+\end{itemize}
+
+\subsection{Lancement}
+
+\begin{enumerate}
+  \item Télécharger le fichier \texttt{index.html}
+  \item Double-cliquer pour l'ouvrir dans votre navigateur
+  \item Créer un compte ou se connecter
+  \item Choisir un jeu dans le menu
+\end{enumerate}
+
+\subsection{Contrôles des jeux d'arcade}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Jeu} & \textbf{Contrôles} \\
+\hline
+Tetris & \texttt{<-} \texttt{->} Déplacer -- \texttt{\^{}} Rotation -- \texttt{v} Descendre -- Espace Chute rapide \\
+\hline
+Snake & Flèches directionnelles ou Z/Q/S/D \\
+\hline
+Space Invaders & \texttt{<-} \texttt{->} Déplacer -- Espace Tirer \\
+\hline
+Breakout & Souris ou \texttt{<-} \texttt{->} \\
+\hline
+Frogger & Flèches directionnelles \\
+\hline
+\end{tabular}
+\caption{Contrôles des jeux d'arcade}
+\label{tab:controles}
+\end{table}
+
+\end{document}
